@@ -12,11 +12,13 @@ dependencies = [
     "pyyaml>=6.0",
     "scikit-learn>=1.4",
     "requests>=2.31",
+    "matplotlib>=3.8",
 ]
 
 [project.scripts]
 fox51-backtest = "ml.backtest.runner:main"
 fox51-ingest = "ml.ingest.nba_games:main"
+fox51-report = "ml.backtest.report:main"
 
 [build-system]
 requires = ["setuptools>=69"]

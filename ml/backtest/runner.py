@@ -160,6 +160,12 @@ def run_backtest(config: dict) -> dict:
     report = write_run_report(run_dir, config, preds, bets if has_odds else None, initial_bankroll)
     report["run_dir"] = str(run_dir)
     report["odds_used"] = has_odds
+
+    from ml.backtest.report import generate_report
+
+    dashboard = generate_report(run_dir)
+    report["report_html"] = str(run_dir / "report.html")
+    report["dashboard_png"] = str(dashboard)
     return report
 
 
@@ -174,7 +180,8 @@ def main() -> None:
     config = load_config(args.config)
     report = run_backtest(config)
     print(json.dumps({k: v for k, v in report.items() if k != "calibration"}, indent=2))
-    print(f"\nFull report -> {report['run_dir']}/metrics.json")
+    print(f"\nMetrics  -> {report['run_dir']}/metrics.json")
+    print(f"Charts   -> {report.get('report_html', 'N/A')}")
 
 
 if __name__ == "__main__":

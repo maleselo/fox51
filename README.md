@@ -45,6 +45,17 @@ Outputs land in `data/backtest_runs/<timestamp>_elo_v0/`:
 - `predictions.parquet` — per-game home win probability
 - `bets.parquet` — simulated bets (if odds present)
 - `metrics.json` — summary metrics
+- `report.html` + `charts/` — performance visualizations (auto-generated)
+
+Regenerate charts for an existing run:
+
+```bash
+fox51-report data/backtest_runs/<run_id>_elo_v0
+# or latest run:
+fox51-report
+```
+
+Open `report.html` in a browser to view calibration, rolling accuracy, and season breakdown.
 
 ### 4. Iterate
 
