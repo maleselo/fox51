@@ -9,20 +9,12 @@ from pathlib import Path
 import pandas as pd
 from nba_api.stats.endpoints import leaguegamefinder
 
-# Standard delay to avoid rate limits on stats.nba.com
-_REQUEST_DELAY_S = 0.6
-
-
-def _seasons_to_years(season: str) -> tuple[int, int]:
-    """Convert '2023-24' -> (2023, 2024)."""
-    start, end = season.split("-")
-    return int(start), int(f"20{end}")
+from ml.ingest.nba_util import REQUEST_DELAY_S, season_to_nba_id
 
 
 def fetch_season_games(season: str) -> pd.DataFrame:
     """Return regular-season game rows for one NBA season string."""
-    year_start, year_end = _seasons_to_years(season)
-    season_id = f"{year_start}-{str(year_end)[-2:]}"
+    season_id = season_to_nba_id(season)
 
     # Regular season only (exclude preseason/playoffs in v0)
     finder = leaguegamefinder.LeagueGameFinder(
@@ -31,7 +23,7 @@ def fetch_season_games(season: str) -> pd.DataFrame:
         league_id_nullable="00",
     )
     raw = finder.get_data_frames()[0]
-    time.sleep(_REQUEST_DELAY_S)
+    time.sleep(REQUEST_DELAY_S)
 
     if raw.empty:
         return pd.DataFrame()

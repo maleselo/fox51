@@ -3,6 +3,7 @@
 data:
   games_path: data/games.parquet
   odds_path: data/odds.parquet  # optional; value-bet sim skipped if missing
+  team_game_logs_path: data/team_game_logs.parquet  # optional rolling features (nba_api)
 
 seasons:
   - "2022-23"

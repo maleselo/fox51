@@ -18,6 +18,7 @@ dependencies = [
 [project.scripts]
 fox51-backtest = "ml.backtest.runner:main"
 fox51-ingest = "ml.ingest.nba_games:main"
+fox51-ingest-stats = "ml.ingest.team_stats:main"
 fox51-report = "ml.backtest.report:main"
 
 [build-system]
