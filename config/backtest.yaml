@@ -1,0 +1,39 @@
+# v0 backtest configuration — iterate by copying to config/runs/<name>.yaml
+
+data:
+  games_path: data/games.parquet
+  odds_path: data/odds.parquet  # optional; value-bet sim skipped if missing
+
+seasons:
+  - "2022-23"
+  - "2023-24"
+  - "2024-25"
+
+walk_forward:
+  # Minimum completed games before the first prediction (Elo warm-up).
+  min_train_games: 400
+  # Re-fit / snapshot cadence in games (Elo updates every game in v0).
+  decision_minutes_before_tip: 60
+
+model:
+  name: elo
+  elo:
+    k_factor: 20.0
+    home_court_elo: 100.0
+    initial_rating: 1500.0
+
+betting:
+  # Used when odds parquet is present (French decimal odds).
+  french_books:
+    - winamax
+    - betclic
+    - unibet_fr
+    - parions_sport
+  min_edge: 0.03
+  kelly_fraction: 0.25
+  max_bet_pct: 0.05
+  min_stake_eur: 2.0
+  initial_bankroll_eur: 1000.0
+
+output:
+  dir: data/backtest_runs

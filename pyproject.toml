@@ -1,0 +1,36 @@
+[project]
+name = "fox51"
+version = "0.1.0"
+description = "NBA value bet research — data ingest, models, and backtesting"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "nba_api>=1.4",
+    "pandas>=2.2",
+    "pyarrow>=15.0",
+    "numpy>=1.26",
+    "pyyaml>=6.0",
+    "scikit-learn>=1.4",
+    "requests>=2.31",
+]
+
+[project.scripts]
+fox51-backtest = "ml.backtest.runner:main"
+fox51-ingest = "ml.ingest.nba_games:main"
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.setuptools]
+packages = [
+    "ml",
+    "ml.ingest",
+    "ml.features",
+    "ml.models",
+    "ml.betting",
+    "ml.backtest",
+]
